@@ -10,5 +10,5 @@ export function calcElectricityFee(
   if (!Number.isInteger(kwh) || kwh < 0) {
     throw new Error('INVALID_CONSUMPTION');
   }
-  return 30;
+  return 30 + kwh * 1.68;
 }
