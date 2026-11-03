@@ -32,4 +32,16 @@ describe('calcElectricityFee (Варіант 11)', () => {
       expect(calcElectricityFee(kwh)).toBeCloseTo(expected, 2);
     },
   );
+
+  it.each([
+    { kwh: 100, expected: 114 }, // 100 * 1.68 * 0.5 + 30 = 84 + 30 = 114
+    { kwh: 150, expected: 180 }, // (100 * 1.68 + 50 * 2.64) * 0.5 + 30 = 150 + 30 = 180
+  ])(
+    'нічний тариф (50% знижки на кВт/год): $kwh кВт/год → $expected грн',
+    ({ kwh, expected }) => {
+      expect(
+        calcElectricityFee(kwh, { night: true }),
+      ).toBeCloseTo(expected, 2);
+    },
+  );
 });
