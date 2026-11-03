@@ -8,4 +8,8 @@ describe('calcElectricityFee (Варіант 11)', () => {
       expect(() => calcElectricityFee(kwh)).toThrow('INVALID_CONSUMPTION');
     },
   );
+
+  it('нараховує абонплату 30 грн при нульовому споживанні', () => {
+    expect(calcElectricityFee(0)).toBe(30);
+  });
 });
