@@ -2,6 +2,11 @@ export interface ElectricityOptions {
   night?: boolean;
 }
 
+const BASE_LIMIT = 100;
+const BASE_RATE = 1.68;
+const OVER_RATE = 2.64;
+const FIXED_FEE = 30;
+
 export function calcElectricityFee(
   kwh: number,
   options: ElectricityOptions = {},
@@ -11,11 +16,11 @@ export function calcElectricityFee(
     throw new Error('INVALID_CONSUMPTION');
   }
 
-  if (kwh <= 100) {
-    return 30 + kwh * 1.68;
+  if (kwh <= BASE_LIMIT) {
+    return FIXED_FEE + kwh * BASE_RATE;
   }
 
-  const baseCost = 100 * 1.68;
-  const overCost = (kwh - 100) * 2.64;
-  return 30 + baseCost + overCost;
+  const baseCost = BASE_LIMIT * BASE_RATE;
+  const overCost = (kwh - BASE_LIMIT) * OVER_RATE;
+  return FIXED_FEE + baseCost + overCost;
 }
