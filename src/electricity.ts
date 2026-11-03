@@ -4,7 +4,11 @@ export interface ElectricityOptions {
 
 export function calcElectricityFee(
   kwh: number,
-  _options: ElectricityOptions = {},
+  options: ElectricityOptions = {},
 ): number {
-  throw new Error('Not implemented');
+  void options;
+  if (!Number.isInteger(kwh) || kwh < 0) {
+    throw new Error('INVALID_CONSUMPTION');
+  }
+  return 0;
 }
