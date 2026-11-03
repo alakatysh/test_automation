@@ -33,6 +33,6 @@ export function calcElectricityFee(
   const finalEnergyCost = options.night
     ? baseCost * NIGHT_DISCOUNT_RATE
     : baseCost;
-
+//1
   return round2(FIXED_FEE + finalEnergyCost);
 }
