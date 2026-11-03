@@ -44,4 +44,8 @@ describe('calcElectricityFee (Варіант 11)', () => {
       ).toBeCloseTo(expected, 2);
     },
   );
+
+  it('заокруглює підсумкову суму до копійок (усуває артефакти float)', () => {
+    expect(calcElectricityFee(57, { night: true })).toBe(77.88);
+  });
 });

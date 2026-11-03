@@ -34,5 +34,5 @@ export function calcElectricityFee(
     ? baseCost * NIGHT_DISCOUNT_RATE
     : baseCost;
 
-  return round2(FIXED_FEE + finalEnergyCost);
+  // return round2(FIXED_FEE + finalEnergyCost);
 }
