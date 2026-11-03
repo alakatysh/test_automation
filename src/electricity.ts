@@ -6,21 +6,33 @@ const BASE_LIMIT = 100;
 const BASE_RATE = 1.68;
 const OVER_RATE = 2.64;
 const FIXED_FEE = 30;
+const NIGHT_DISCOUNT_RATE = 0.5;
+
+const round2 = (n: number): number => Math.round(n * 100) / 100;
+
+function assertValidConsumption(kwh: number): void {
+  if (!Number.isInteger(kwh) || kwh < 0) {
+    throw new Error('INVALID_CONSUMPTION');
+  }
+}
+
+function calcEnergyCost(kwh: number): number {
+  if (kwh <= BASE_LIMIT) {
+    return kwh * BASE_RATE;
+  }
+  return BASE_LIMIT * BASE_RATE + (kwh - BASE_LIMIT) * OVER_RATE;
+}
 
 export function calcElectricityFee(
   kwh: number,
   options: ElectricityOptions = {},
 ): number {
-  void options;
-  if (!Number.isInteger(kwh) || kwh < 0) {
-    throw new Error('INVALID_CONSUMPTION');
-  }
+  assertValidConsumption(kwh);
 
-  if (kwh <= BASE_LIMIT) {
-    return FIXED_FEE + kwh * BASE_RATE;
-  }
+  const baseCost = calcEnergyCost(kwh);
+  const finalEnergyCost = options.night
+    ? baseCost * NIGHT_DISCOUNT_RATE
+    : baseCost;
 
-  const baseCost = BASE_LIMIT * BASE_RATE;
-  const overCost = (kwh - BASE_LIMIT) * OVER_RATE;
-  return FIXED_FEE + baseCost + overCost;
+  return round2(FIXED_FEE + finalEnergyCost);
 }
