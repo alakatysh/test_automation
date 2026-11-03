@@ -11,15 +11,25 @@ describe('calcElectricityFee (Варіант 11)', () => {
 
   it('нараховує абонплату 30 грн при нульовому споживанні', () => {
     expect(calcElectricityFee(0)).toBe(30);
-  },
-);
-it.each([
-    { kwh: 50, expected: 114 },   // 50 * 1.68 + 30 = 114
-    { kwh: 100, expected: 198 },  // 100 * 1.68 + 30 = 198 (межа)
+  });
+
+  it.each([
+    { kwh: 50, expected: 114 },
+    { kwh: 100, expected: 198 },
   ])(
     'базовий тариф до 100 кВт/год: $kwh кВт/год → $expected грн',
     ({ kwh, expected }) => {
       expect(calcElectricityFee(kwh)).toBe(expected);
+    },
+  );
+
+  it.each([
+    { kwh: 101, expected: 200.64 }, // 100 * 1.68 + 1 * 2.64 + 30 = 200.64
+    { kwh: 150, expected: 330 },    // 100 * 1.68 + 50 * 2.64 + 30 = 330
+  ])(
+    'понаднормовий тариф понад 100 кВт/год: $kwh кВт/год → $expected грн',
+    ({ kwh, expected }) => {
+      expect(calcElectricityFee(kwh)).toBeCloseTo(expected, 2);
     },
   );
 });
