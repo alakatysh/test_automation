@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Orders API Lab 5" tests="3" time="0.085">
+  <testsuite name="Login" id="a4736e15-353e-48e8-8f19-019da8f31808" timestamp="2026-11-04T09:10:54.704Z" tests="1" failures="0" errors="0" time="0.074">
+    <testcase name="Status is 200" time="0.074" classname="Login"/>
+  </testsuite>
+  <testsuite name="Create Order" id="ec968b8c-5e5e-4206-961b-8702e7180c01" timestamp="2026-11-04T09:10:54.704Z" tests="2" failures="0" errors="0" time="0.008">
+    <testcase name="Status is 201" time="0.008" classname="CreateOrder"/>
+    <testcase name="Total is 560" time="0.008" classname="CreateOrder"/>
+  </testsuite>
+  <testsuite name="Get Stats (Variant 11)" id="bb3470a4-d136-4893-bd87-83576017cdb8" timestamp="2026-11-04T09:10:54.704Z" tests="2" failures="0" errors="0" time="0.003">
+    <testcase name="Status is 200" time="0.003" classname="GetStatsVariant11"/>
+    <testcase name="Stats structure valid" time="0.003" classname="GetStatsVariant11"/>
+  </testsuite>
+</testsuites>
